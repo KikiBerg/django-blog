@@ -120,8 +120,11 @@ Run the command `python3 manage.py shell` to open the Django shell, where you ca
     print(f"Username: {user.username}, Email: {user.email}, First Name: {user.first_name}, Last Name: {user.last_name}")`
 
 - In order to exit the Django shell, type `exit`
-
-
+--------
+### Part 4b: Deployment and connecting Heroku to the PostgreSQL database
+- On the **Settings tab** click reveal config vars. 
+- Add a new config var with a key of `DATABASE_URL` and the value of the PostgreSQL database URL.
+- *Note: You can copy this from your env.py file (minus the quotes)*
 --------
 ### Good habits
 
