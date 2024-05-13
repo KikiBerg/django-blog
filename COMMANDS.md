@@ -125,7 +125,24 @@ Run the command `python3 manage.py shell` to open the Django shell, where you ca
 - On the **Settings tab** click reveal config vars. 
 - Add a new config var with a key of `DATABASE_URL` and the value of the PostgreSQL database URL.
 - *Note: You can copy this from your env.py file (minus the quotes)*
+
 --------
+
+### Part 7: SECRET_KEY
+> **env.py**
+- Make up a new SECRET_KEY value: `os.environ.setdefault(
+    "SECRET_KEY", "comeupwithacombinationofletters,numbersandsymbols"
+)`
+
+> **settings.py**
+- Modify the settings.py file to retrieve the new SECRET_KEY from the environment variables: `SECRET_KEY = os.environ.get('SECRET_KEY')`
+
+> **Heroku**
+- Set the SECRET_KEY as a config variable on Heroku
+- Push the code to Github and redeploy
+- *Note: If you run both the local and browser app, and get no errors after adding the SECRET_KEY to both, it should mean the change has been successful.*
+--------
+
 ### Good habits
 
 + Deploy early and regurarly
