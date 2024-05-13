@@ -102,6 +102,7 @@ Let's enter our first data into the database. As Django comes with built-in auth
 `python3 manage.py createsuperuser`
 - *Note: Django will check your password security.*
 
+#### USE THE NEXT SECTION CAREFULLY!!!
 > **Run commands to view information in CI database:**
 Use the Django shell in order to run commands to view this information.
 The Django shell allows you to write Python statements from the command line although they're being executed from within Django.
