@@ -145,13 +145,42 @@ Run the command `python3 manage.py shell` to open the Django shell, where you ca
 --------
 
 ### Part 8: Creating the model
-
-
+- Debug > True
+- In my_app/**models.py** file add a new import at the top for the User model: `from django.contrib.auth.models import User`
+    - Create a class named `Post` below the comment inheriting from the `Model` class: `class Post(models.Model):`
+        - Add an attribute *title* defined as a *character field* with a max length of 200 characters: `title = models.CharField(max_length=200, unique=True)` Note: The title values should be unique to avoid having blog posts of the same name confusing your users.
+        - Add an attribute *slug* defined as a *slug field* with a max length of 200 characters: `slug = models.SlugField(max_length=200, unique=True)` Note: In Django, the slug is what you'll use to build a URL for each of your posts. 
+        - Add an attribute *author* defined as a *Foreign Key* to the User model: `author = models.ForeignKey(
+    User, on_delete=models.CASCADE, related_name="blog_posts"
+)` Note: One user can write many posts, so this is a one-to-many or Foreign Key. The cascade on delete means that on the deletion of the user entry, all their posts are also deleted.
+        - Add an attribute *content* defined as a *text field*: `content = models.TextField()` Note: This is the blog article content.
+        - Add an attribute *created_on* defined as a *date time field*: `created_on = models.DateTimeField(auto_now_add=True)` Note: The auto_now_add=True means the default created time is the time of post entry.
+        - Add an attribute *status* defined as an *integer field* with a default of 0: `status = models.IntegerField(choices=STATUS, default=0)`
+            - Create the constant STATUS above the class as a tuple: `STATUS = ((0, "Draft"), (1, "Published"))` Note: A draft is defined as zero and published as one, so you can see the default is to save as a draft.     
 
 --------
 
 ### Part 9: Use the model to update the database
+Now we have created a Post model we need to convert that Python class into instructions for the creation of the database table structure.
 
+- `python3 manage.py makemigrations blog` Note: A blog/migrations/0001_initial.py file is created containing the instructions on what table to build.
+- `python3 manage.py migrate blog`: we create that table in the database.
+- In my_app/**admin.py** file import the Post model and register it:
+    - `from .models import Post`
+    - `admin.site.register(Post)` (Register it here: *# Register your models here.*)
+- In my_project/**settings.py** file add:
+    - `CSRF_TRUSTED_ORIGINS = [
+    "https://*.codeanyapp.com",
+    "https://*.herokuapp.com"
+]` Note: you need to add **your local development server URL domain** (e.g gitpod.io if you work on Gitpod) and your **production server URL domain**
+- Start the Django server in the terminal: `python3 manage.py runserver`
+    - open the app and append /admin to the URL in the browser
+    - log in as the superuser
+    - There is now a Posts option under Django Administration.
+
+- Debug > False
+- Git add, commit, push
+- Deploy on heroku > Open the app, append /admin to the URL in the browser and log in as the superuser. There is now a Posts option under Site Administration. 
 
 --------
 
@@ -162,3 +191,30 @@ Run the command `python3 manage.py shell` to open the Django shell, where you ca
 + Add, commit and push to Github often
 + Recreate **requirements.txt** file after every new package
 + Always switch **DEBUG** to **False** before deploying
+
+--------
+
+### Key files in project folder:
+The top level in Django is a project. A project is like a container for everything we want to do. By default, the project contains a settings file and some other administrative files.
+- Key files to note are: **manage.py**, **settings.py**, and **urls.py**.
+
+1. **manage.py**: this file is in the root directory, above the project folder. It is used to create apps, run our project and perform some database operations.
+
+2. **settings.py**: this file contains the project-wide settings, such as installed apps and database connection information, among other things.
+
+* Key settings in settings.py:
+  * `ALLOWED_HOSTS`: Determines which host or server names the project can run on.
+  * `SECRET_KEY`: Defines an encryption key for leaving a virtual signature.
+  * `INSTALLED_APPS`: Provides a list of applications that are enabled for this Django installation.
+  * `DEBUG`: Allows for the extended, yellow error messages to be displayed.
+
+3. **urls.py**: This file defines how URLs in the Django project map to specific views in the apps. It essentially acts as a routing table, directing users to the appropriate view functions based on the URL they request. The imported views from the apps are responsible for handling user requests and generating the appropriate responses.
+
+--------
+
+### Key files in apps folder:
+Inside the project, we create apps. An app’s structure is like a Python package with multiple Python modules within a directory. They’re the things that actually do something, such as a blog, a to-do list, or a poll. A project can contain many, many apps. You could do everything you want with just one app, but for maintainability and good design practices, it is better to separate different functionality into different apps.
+
+* Key files to note are: **models.py**, **views.py**.
+  * **models.py**: our database models are stored here, which define the structure of the database used by our app.
+  * **views.py**: this file contains the view code for our app. 
