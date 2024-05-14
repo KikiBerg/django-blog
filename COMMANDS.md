@@ -141,7 +141,20 @@ Run the command `python3 manage.py shell` to open the Django shell, where you ca
 - Set the SECRET_KEY as a config variable on Heroku
 - Push the code to Github and redeploy
 - *Note: If you run both the local and browser app, and get no errors after adding the SECRET_KEY to both, it should mean the change has been successful.*
+
 --------
+
+### Part 8: Creating the model
+
+
+
+--------
+
+### Part 9: Use the model to update the database
+
+
+--------
+
 
 ### Good habits
 
