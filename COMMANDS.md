@@ -215,6 +215,7 @@ The top level in Django is a project. A project is like a container for everythi
 ### Key files in apps folder:
 Inside the project, we create apps. An app’s structure is like a Python package with multiple Python modules within a directory. They’re the things that actually do something, such as a blog, a to-do list, or a poll. A project can contain many, many apps. You could do everything you want with just one app, but for maintainability and good design practices, it is better to separate different functionality into different apps.
 
-* Key files to note are: **models.py**, **views.py**.
+* Key files to note are: **models.py**, **views.py**, **admin.py**
   * **models.py**: our database models are stored here, which define the structure of the database used by our app.
   * **views.py**: this file contains the view code for our app. 
+  * **admin.py**: the admin.py file is where we register our custom models so that they can be accessed through the admin panel.
