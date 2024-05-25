@@ -211,6 +211,7 @@ In these text-based steps, we'll create the main page for our blog using Django'
     - Add a urlpattern for your PostList class-based view named home: `urlpatterns = [
     path('', views.PostList.as_view(), name='home'),
 ]`
+    - In this class add: `queryset = Post.objects.all()`, `template_name = "post_list.html"`
     
 
 
