@@ -16,11 +16,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from blog.views import my_blog ## Import all functions from blog.views directly
+## from blog.views import my_blog ## Import all functions from blog.views directly
 ## from blog import views as blog_views 
 ## this way we import all functions but assign them to the variable blog_views
 
 urlpatterns = [
-    path('blog/', my_blog, name='blog'), ## path("blog/", blog_views.my_blog, name='blog')
+    ## path('blog/', my_blog, name='blog'), ## path("blog/", blog_views.my_blog, name='blog')
+    path("", include("blog.urls"), name="blog-urls"),
     path('admin/', admin.site.urls),
 ]

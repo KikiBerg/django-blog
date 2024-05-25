@@ -1,6 +1,6 @@
 # INITIATE A DJANGO PROJECT, USEFUL COMMANDS
 
-### Part 1: Creating the project
+### Part 01: Creating the project
 
 **Installing packages**: 
 - Install the Django Python package: `pip3 install Django~=4.2.1`
@@ -13,7 +13,7 @@
 - In **my_project/settings.py** file, paste the hostname between the square brackets of `ALLOWED_HOSTS` and save: `ALLOWED_HOSTS = ['8000-reponame-djangoproject-randomdigitsandletters.ws-eu111.gitpod.io']`
 - Start the Django server: `python3 manage.py runserver`
 --------
-### Part 2: Creating the new app
+### Part 02: Creating the new app
 - `python3 manage.py startapp app_name`
 - In **settings.py** add the app to the list of `INSTALLED_APPS`
 - Surround the app name in single quotes, and use a trailing comma before and after
@@ -27,17 +27,17 @@ return HttpResponse("Hello, Blog!")`
 - Import the my_blog view: `from blog.views import my_blog`
 - Add the new path to the urlpatterns: `path('blog/', my_blog, name='blog'),`
 --------
-### Part 3: Running the server and testing the app
+### Part 03: Running the server and testing the app
 - Always make sure to **save all your files** before running the project. You can also take this opportunity to git add, commit and push your work.
 - Open a browser window by returning to the terminal tab and running the Django server `python3 manage.py runserver`. Now you can see the text from the view function in the browser.
 - In **settings.py** make sure to have pasted the **hostname** inside the `ALLOWED_HOSTS` before running the project.
 --------
-### Part 4: Deployment
-#### Part 4.1: Create the Heroku app
+### Part 04: Deployment
+#### Part 04.1: Create the Heroku app
 - On the **Settings tab** click reveal config vars. 
 - Add a key of DISABLE_COLLECTSTATIC and a value of 1 and click Add.
 
-#### Part 4.2: Update the code for deployment
+#### Part 04.2: Update the code for deployment
 - Install a production-ready webserver for Heroku: `pip3 install gunicorn~=20.1`
 - Add gunicorn==20.1.0 to the requirements.txt file: `pip3 freeze --local > requirements.txt`
 *Note: gunicorn is a production equivalent of the manage.py runserver used in development but with speed and security optimisation.*
@@ -56,13 +56,13 @@ return HttpResponse("Hello, Blog!")`
 2. git commit -m "..."
 3. git push
 
-#### Part 4.3: Deploy to Heroku
+#### Part 04.3: Deploy to Heroku
 - On the Deploy tab in the Heroku app dashboard: 1. connect to the GitHub repo, 2. click on Deploy Branch
 - You will see a 404 error that the current path didn’t match any of the URL patterns as you have not written the urlpattern yet.- Append /app_name (/blog in this case) to the app URL to see the text.
 
 --------
 
-### Part 5: Creating the database
+### Part 05: Creating the database
 
 - In the **settings.py** file change the value of DEBUG back to True
 > **env.py**
@@ -95,7 +95,7 @@ return HttpResponse("Hello, Blog!")`
 
 --------
 
-### Part 6: Entering data
+### Part 06: Entering data
 Let's enter our first data into the database. As Django comes with built-in auth and admin apps we can create a superuser with admin access to our database:
 > **superuser**
 - Choose a memorable user name, use your email address and choose a secure password:
@@ -128,7 +128,7 @@ Run the command `python3 manage.py shell` to open the Django shell, where you ca
 
 --------
 
-### Part 7: SECRET_KEY
+### Part 07: SECRET_KEY
 > **env.py**
 - Make up a new SECRET_KEY value: `os.environ.setdefault(
     "SECRET_KEY", "comeupwithacombinationofletters,numbersandsymbols"
@@ -144,7 +144,7 @@ Run the command `python3 manage.py shell` to open the Django shell, where you ca
 
 --------
 
-### Part 8: Creating the model
+### Part 08: Creating the model
 - Debug > True
 - In my_app/**models.py** file add a new import at the top for the User model: `from django.contrib.auth.models import User`
     - Create a class named `Post` below the comment inheriting from the `Model` class: `class Post(models.Model):`
@@ -160,7 +160,7 @@ Run the command `python3 manage.py shell` to open the Django shell, where you ca
 
 --------
 
-### Part 9: Use the model to update the database
+### Part 09: Use the model to update the database
 Now we have created a Post model we need to convert that Python class into instructions for the creation of the database table structure.
 
 - `python3 manage.py makemigrations blog` Note: A blog/migrations/0001_initial.py file is created containing the instructions on what table to build.
@@ -183,6 +183,23 @@ Now we have created a Post model we need to convert that Python class into instr
 - Deploy on heroku > Open the app, append /admin to the URL in the browser and log in as the superuser. There is now a Posts option under Site Administration. 
 
 --------
+### Part 10: VIEWS
+In these text-based steps, we'll create the main page for our blog using Django's generic views. 
+
+- In my_app directory (blog in this case) create a new Python file named **urls.py**
+- In my_project/**urls.py** file:
+    - Delete the blog_views import (Our app (blog) has now its own URL file)
+    - Ensure that `include` is imported from django.urls by appending it after path
+    - Replace the existing blog/ urlpattern with a new empty string urlpattern: 
+        - `path('blog/', my_blog, name='blog'),` gets replaced by: `path("", include("blog.urls"), name="blog-urls"),`
+        - This pattern tells Django to look in the blog app URL file for any blog urlpatterns
+- In my_app, create a **templates directory** with another directory nested within, named e.g. blog : `mkdir -p blog/templates/blog`
+    - In this new directory, create a new HTML file named `post_list.html ` and paste the [HTML code provided](https://github.com/Code-Institute-Solutions/blog/blob/main/06_views_part1/02_building_homepage/post_list.html)
+- In the my_app/**views.py** file, delete the existing blog function-based view and the HttpResponse import.
+
+
+
+
 
 
 ### Good habits
