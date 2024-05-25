@@ -186,6 +186,7 @@ Now we have created a Post model we need to convert that Python class into instr
 ### Part 10: VIEWS
 In these text-based steps, we'll create the main page for our blog using Django's generic views. 
 
+> **Preparatory steps**
 - In my_app directory (blog in this case) create a new Python file named **urls.py**
 - In my_project/**urls.py** file:
     - Delete the blog_views import (Our app (blog) has now its own URL file)
@@ -197,10 +198,26 @@ In these text-based steps, we'll create the main page for our blog using Django'
     - In this new directory, create a new HTML file named `post_list.html ` and paste the [HTML code provided](https://github.com/Code-Institute-Solutions/blog/blob/main/06_views_part1/02_building_homepage/post_list.html)
 - In the my_app/**views.py** file, delete the existing blog function-based view and the HttpResponse import.
 
+> **How to create a class-based view**
+- In my_app/**views.py** file: import **generic** from django.views and import the **Post model**: 
+    - `from django.views import generic`
+    - `from .models import Post`
+- In my_app/**views.py** file: **create a class-based view** named PostList that inherits from the generic.ListView class to display all your posts:
+    - `class PostList(generic.ListView):
+    model = Post`
+- In my_app/**urls.py** file import the views file and path:
+    - `from . import views`
+    - `from django.urls import path`
+    - Add a urlpattern for your PostList class-based view named home: `urlpatterns = [
+    path('', views.PostList.as_view(), name='home'),
+]`
+    
 
 
 
 
+
+--------
 
 ### Good habits
 
