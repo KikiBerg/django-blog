@@ -184,7 +184,7 @@ Now we have created a Post model we need to convert that Python class into instr
 
 --------
 ### Part 10: VIEWS
-In these text-based steps, we'll create the main page for our blog using Django's generic views. 
+In these steps, we'll create the main page for our blog using Django's generic views. 
 
 > **Preparatory steps**
 - In my_app directory (blog in this case) create a new Python file named **urls.py**
@@ -214,6 +214,22 @@ In these text-based steps, we'll create the main page for our blog using Django'
     - In this class add: `queryset = Post.objects.all()`, `template_name = "post_list.html"`
     
 
+--------
+### Part 11: Summernote
+In these steps, we'll enhance the admin panel to simplify the process of adding and editing blog posts for the superuser. We'll introduce Summernote, a robust text editor, to achieve this.
+> **Install and wire up the package**
+- Install the django-summernote package: `pip3 install django-summernote~=0.8.20.0`
+- Add the django-summernote package to the requirements.txt file
+- In the **my_project/settings.py** file:
+    - Append summernote to the INSTALLED_APPS: `'django_summernote',`
+    - *Note that the dash in the package name is replaced with an underscore in the INSTALLED_APPS list*
+    - *Remember the quotes and trailing comma*
+- In **my_project/urls.py** file include the summernote urlpattern:
+    - `path('summernote/', include('django_summernote.urls')),`
+    - *Note: django_summernote is an app, that is why we are including its urls.py file*
+    - *Note: Order the string paths alphabetically, with the empty string path last*
+
+> **Update the blog app to use summernote**
 
 
 
