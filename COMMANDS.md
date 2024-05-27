@@ -9,7 +9,7 @@
 **Creating the Django project**:
 - `django-admin startproject project_name .`
 - **Don't forget the dot at the end.** The dot specifies the directory location. 
-- Migrate changes and keep the database updated, when there are changes in models.py: `python manage.py migrate`
+- Migrate changes and keep the database updated, when there are changes in models.py: `python3 manage.py migrate`
 - In **my_project/settings.py** file, paste the hostname between the square brackets of `ALLOWED_HOSTS` and save: `ALLOWED_HOSTS = ['8000-reponame-djangoproject-randomdigitsandletters.ws-eu111.gitpod.io']`
 - Start the Django server: `python3 manage.py runserver`
 --------
@@ -230,6 +230,18 @@ In these steps, we'll enhance the admin panel to simplify the process of adding 
     - *Note: Order the string paths alphabetically, with the empty string path last*
 
 > **Update the blog app to use summernote**
+- In the **my_app/admin.py** file import the class SummernoteModelAdmin from the django_summernote/admin.py file: `from django_summernote.admin import SummernoteModelAdmin`
+- *Note: The ready-made SummernoteModelAdmin class defines the text editor, enabling you to access its functionality in the admin panel for your posts*
+- Below the imports, but above the existing registered models, add a class named PostAdmin: `class PostAdmin(SummernoteModelAdmin):`
+
+    `list_display = ('title', 'slug', 'status')
+    search_fields = ['title']
+    list_filter = ('status',)
+    prepopulated_fields = {'slug': ('title',)}
+    summernote_fields = ('content',)`
+- Add an `@admin.register()` decorator above the PostAdmin class and pass in the `Post` model as an argument: `@admin.register(Post)`
+- Delete the existing Post model registration: ~~admin.site.register(Post)~~
+- Apply the **migrations** for the django_summernote app: `python3 manage.py migrate`
 
 
 
