@@ -242,9 +242,7 @@ In these steps, we'll enhance the admin panel to simplify the process of adding 
 - Add an `@admin.register()` decorator above the PostAdmin class and pass in the `Post` model as an argument: `@admin.register(Post)`
 - Delete the existing Post model registration: ~~admin.site.register(Post)~~
 - Apply the **migrations** for the django_summernote app: `python3 manage.py migrate`
-
    
-
 --------
 ### Part 12: Adding more posts with fixtures
 Enter fixtures: they help move data into databases. Think of a fixture as a file containing data tailored to your database. You can use it to save database contents or to fill a database for development.
@@ -256,13 +254,47 @@ Enter fixtures: they help move data into databases. Think of a fixture as a file
 - *Note: Django knows where to look for the file, as it is stored in the fixtures directory by default, e.g. blog/fixtures/posts.json*
 - Add blog/fixtures/ to the **.gitignore file**: `blog/fixtures/`
 - Run the Django server in the workspace terminal. Append /admin to the browser URL. Log in to the admin dashboard with the superuser credentials (if you are not already). On Posts you can now view the newly added posts.
+   
+--------
+### Part 13: Base template and homepage
+In these text-based steps, we will:
 
+Create a base.html template for all subsequent templates to inherit from.
+Create an index.html template for our existing view listing all posts.
 
+> **Prepare the project for multiple template directories**
+- In the **my_project/settings.py** file:
+    - Create a TEMPLATES_DIR constant to build a path for our subdirectory 'templates': `TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')`
+    - Scroll down to TEMPLATES and add the newly created TEMPLATES_DIR constant to the list of 'DIRS': `'DIRS': [TEMPLATES_DIR],`
+- Add a new top-level templates directory
+
+> **Create templates**
+- In the top-level templates directory: Add a new base.html file: `base.html`
+    - Add all the code linked here [source file](https://github.com/Code-Institute-Solutions/blog/blob/main/08_templates/01_base_template/base.html) to the base.html file
+- In the my_app/templates/blog directory: Add a new index.html file: `index.html`
+    - Add all the code linked here [source file](https://github.com/Code-Institute-Solutions/blog/blob/main/08_templates/01_base_template/index.html) to the base.html file
+- In my_app/**views.py** file:
+    - replace the existing template_name with the new: `template_name = "blog/index.html"`
+    - add a paginate_by into the PostList class-based view: `paginate_by = 6`
+- You can now delete the redundant post_list.html template, as we've replaced it with the new index.html template
+
+> **Static directory**
+- Create a top-level static directory with a css directory within it: `static/css`
+- Create a `style.css` file in the css directory
+- Add the CSS code linked here [source file](https://github.com/Code-Institute-Solutions/blog/blob/main/08_templates/01_base_template/style.css) to the style.css file
+- In the **settings.py** file: 
+    - Build a path for the subdirectory static so we can link to files in the static directory from a template: `STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), ]`
+- In the **base.html** file: 
+    - load the static directory from the first line of the file: `{% load static %}`
+    - add a link for your custom CSS file css/style.css below all the other CSS files: `<!-- Custom CSS --> <link rel="stylesheet" href="{% static 'css/style.css' %}">`
+
+- Git add, commit, push
+- Run the server locally
 
 
 --------
 
-### Good habits
+### GOOD HABITS!
 
 + Deploy early and regurarly
 + Add, commit and push to Github often
