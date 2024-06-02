@@ -243,6 +243,20 @@ In these steps, we'll enhance the admin panel to simplify the process of adding 
 - Delete the existing Post model registration: ~~admin.site.register(Post)~~
 - Apply the **migrations** for the django_summernote app: `python3 manage.py migrate`
 
+   
+
+--------
+### Part 12: Adding more posts
+Enter fixtures: they help move data into databases. Think of a fixture as a file containing data tailored to your database. You can use it to save database contents or to fill a database for development.
+
+- In **my_app** folder add a new directory `fixtures` 
+- Within the blog/fixtures directory, create a new file named `posts.json`
+- Copy and paste the JSON from this source file to your posts: [source file](https://github.com/Code-Institute-Solutions/blog/blob/main/07_Rich_text_reload/03_adding_more_posts/blog/fixtures/posts.json)
+- Load the data to the database table using the fixture name of posts: `python3 manage.py loaddata posts`
+- *Note: Django knows where to look for the file, as it is stored in the fixtures directory by default, e.g. blog/fixtures/posts.json*
+- Add blog/fixtures/ to the **.gitignore file**: `blog/fixtures/`
+- Run the Django server in the workspace terminal. Append /admin to the browser URL. Log in to the admin dashboard with the superuser credentials (if you are not already). On Posts you can now view the newly added posts.
+
 
 
 
