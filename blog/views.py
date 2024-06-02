@@ -13,4 +13,6 @@ from .models import Post
 class PostList(generic.ListView):
     #model = Post  # it is made redundant by the queryset explicitly stating all posts are displayed
     queryset = Post.objects.filter(status=1)
-    template_name = "post_list.html"
+    #template_name = "post_list.html"
+    template_name = "blog/index.html"
+    paginate_by = 6

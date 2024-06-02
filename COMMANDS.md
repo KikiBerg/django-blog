@@ -246,7 +246,7 @@ In these steps, we'll enhance the admin panel to simplify the process of adding 
    
 
 --------
-### Part 12: Adding more posts
+### Part 12: Adding more posts with fixtures
 Enter fixtures: they help move data into databases. Think of a fixture as a file containing data tailored to your database. You can use it to save database contents or to fill a database for development.
 
 - In **my_app** folder add a new directory `fixtures` 
