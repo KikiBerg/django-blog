@@ -257,7 +257,7 @@ Enter fixtures: they help move data into databases. Think of a fixture as a file
    
 --------
 ### Part 13: Base template and homepage
-In these text-based steps, we will:
+In these steps, we will:
 
 Create a base.html template for all subsequent templates to inherit from.
 Create an index.html template for our existing view listing all posts.
@@ -290,7 +290,42 @@ Create an index.html template for our existing view listing all posts.
 
 - Git add, commit, push
 - Run the server locally
+   
+--------
+### Part 14: Deployment with static files / Whitenoise
+In these steps, we will deploy the project with static files. The deployed app will then look as nicely styled as the local development version.
+To do this, we use a Python package named **WhiteNoise**.
+*Note: This package will allow your Heroku app to serve its own static files without relying on any external file hosting services like a content delivery network (CDN).*
 
+> **Install and setup the Python package**
+- `pip3 install whitenoise~=5.3.0`
+- Add the package to your requirements.txt file: `pip3 freeze --local > requirements.txt`
+- In the **settings.py** file:
+    - wire up WhiteNoise to Django's **MIDDLEWARE**: `'whitenoise.middleware.WhiteNoiseMiddleware',`
+    - *Note: The WhiteNoise middleware must be placed directly after the Django SecurityMiddleware*
+
+> **Create a staticfiles directory and collect the static files**
+- In the **settings.py** file: add a **STATIC_ROOT** path: `STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')`
+- Run the **collectstatic** command in the terminal to collect the static files into a staticfiles directory: `python3 manage.py collectstatic`
+
+> **Deployment**
+- From the terminal, check the Python version used in your IDE: `python3 -V`
+- Look up the supported runtimes here [source file](https://devcenter.heroku.com/articles/python-support#specifying-a-python-version) and copy the runtime closest to the one used in your IDE.
+    - *e.g. if your IDE used is 3.9.17, you will choose python-3.9.18*
+- In the **my_project/** folder add a new file: `runtime.txt`
+    - add the Python version copied from the list of supported runtimes to your runtime.txt file
+- Debug > False
+- Git add, commit, push:
+    - `git add --all`
+    - `git commit -m "enable serving of static files"`
+    - `git push origin main`
+- Go to the Heroku dashboard for your deployed project. To review the look and layout of your hosted app, first, click `Open app`
+- Heroku dashboard > Settings > Reveal config vars button: **Remove** the DISABLE_COLLECTSTATIC key/value pair
+    - *Note: This environment variable prevented collectstatic from running on deploy up till now, but as static files are set up, we can remove this*
+- Deploy > main > Deploy Branch
+
+> **Review hosted project**
+- Open the Heroku-hosted app to see that it is now styled just like the local development app
 
 --------
 
