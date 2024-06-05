@@ -338,7 +338,12 @@ To do this, we use a Python package named **WhiteNoise**.
     - download a default image from [HERE](https://codeinstitute.s3.eu-west-1.amazonaws.com/hello-blog/default.zip). Then upload it to the static/images directory
 - In the my_app/templates/my_app directory: create a new **post_detail.html** file
     - add all of the code [IN THIS FILE](https://github.com/Code-Institute-Solutions/blog/blob/main/09_views_part2/01_building_a_blogpost_view/blog/templates/blog/post_detail.html)
-    
+- Collect the new static files to the **staticfiles** directory. Type **yes** when prompted to overwrite the existing files: `python3 manage.py collectstatic`
+- Deploy: 
+    - DEBUG > False
+    - git add --all
+    - git commit -m "added post_detail view"
+    - git push origin main
 
 
 
