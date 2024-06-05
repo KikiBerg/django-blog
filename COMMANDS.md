@@ -183,7 +183,7 @@ Now we have created a Post model we need to convert that Python class into instr
 - Deploy on heroku > Open the app, append /admin to the URL in the browser and log in as the superuser. There is now a Posts option under Site Administration. 
 
 --------
-### Part 10: VIEWS
+### Part 10: VIEWS Part 1
 In these steps, we'll create the main page for our blog using Django's generic views. 
 
 > **Preparatory steps**
@@ -324,6 +324,25 @@ To do this, we use a Python package named **WhiteNoise**.
     - *Note: This environment variable prevented collectstatic from running on deploy up till now, but as static files are set up, we can remove this*
 - Deploy > main > Deploy Branch
 - Open the Heroku-hosted app to see that it is now styled just like the local development app
+
+--------
+### Part 14: VIEWS Part 2
+
+- In the my_app/**urls.py** file add a new path for post_detail: `path('<slug:slug>/', views.post_detail, name='post_detail'),`
+*Note: Don't forget the trailing slash after the slug.*
+- Within the **index.html** template's for-loop, update the anchor element to point to the post_detail view: `<a href="{% url 'post_detail' post.slug %}" class="post-link">` *Note: This uses the name, post_detail from the urlpattern and the slug variable value is accessed with the same dot notation as seen for author, title, excerpt and so on.*
+- In my_app/**views.py** file: 
+    - add a post_detail **function-based view**: ![function-based view](documentation_commands/function_based_view.png)
+    - append the **get_object_or_404** method to the import from django.shortcuts (right after render): `from django.shortcuts import render, get_object_or_404`
+- In the existing **static** directory: create a new **images** directory
+    - download a default image from [HERE](https://codeinstitute.s3.eu-west-1.amazonaws.com/hello-blog/default.zip). Then upload it to the static/images directory
+- In the my_app/templates/my_app directory: create a new **post_detail.html** file
+    - add all of the code [IN THIS FILE](https://github.com/Code-Institute-Solutions/blog/blob/main/09_views_part2/01_building_a_blogpost_view/blog/templates/blog/post_detail.html)
+    
+
+
+
+
 
 --------
 
