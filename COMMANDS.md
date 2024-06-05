@@ -323,8 +323,6 @@ To do this, we use a Python package named **WhiteNoise**.
 - Heroku dashboard > Settings > Reveal config vars button: **Remove** the DISABLE_COLLECTSTATIC key/value pair
     - *Note: This environment variable prevented collectstatic from running on deploy up till now, but as static files are set up, we can remove this*
 - Deploy > main > Deploy Branch
-
-> **Review hosted project**
 - Open the Heroku-hosted app to see that it is now styled just like the local development app
 
 --------
