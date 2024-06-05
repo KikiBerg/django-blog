@@ -11,6 +11,11 @@ I created this file as a handy guide when working with a Django project.
 * [Part 02: Creating the new app](#part-02-creating-the-new-app)  
 
 * [Part 03: Running the server and testing the app](#part-03-running-the-server-and-testing-the-app)
+
+* [Part 04: Deployment](#part-04-deployment)
+    * [Create the Heroku app](#create-the-heroku-app)
+    * [Update the code for deployment](#update-the-code-for-deployment)
+    * [Deploy to Heroku](#deploy-to-heroku)
   
 
 
@@ -47,11 +52,11 @@ return HttpResponse("Hello, Blog!")`
 - In **settings.py** make sure to have pasted the **hostname** inside the `ALLOWED_HOSTS` before running the project.
 --------
 ### Part 04: Deployment
-#### Part 04.1: Create the Heroku app
+> **Create the Heroku app**
 - On the **Settings tab** click reveal config vars. 
 - Add a key of DISABLE_COLLECTSTATIC and a value of 1 and click Add.
 
-#### Part 04.2: Update the code for deployment
+> **Update the code for deployment**
 - Install a production-ready webserver for Heroku: `pip3 install gunicorn~=20.1`
 - Add gunicorn==20.1.0 to the requirements.txt file: `pip3 freeze --local > requirements.txt`
 *Note: gunicorn is a production equivalent of the manage.py runserver used in development but with speed and security optimisation.*
@@ -70,7 +75,7 @@ return HttpResponse("Hello, Blog!")`
 2. git commit -m "..."
 3. git push
 
-#### Part 04.3: Deploy to Heroku
+> **Deploy to Heroku**
 - On the Deploy tab in the Heroku app dashboard: 1. connect to the GitHub repo, 2. click on Deploy Branch
 - You will see a 404 error that the current path didn’t match any of the URL patterns as you have not written the urlpattern yet.- Append /app_name (/blog in this case) to the app URL to see the text.
 
