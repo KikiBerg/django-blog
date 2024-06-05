@@ -4,13 +4,13 @@ I created this file as a handy guide when working with a Django project.
 
 ### CONTENTS
 
-* [Part 01: Creating the project](#part-01:-creating-the-project)
+* [Part 01: Creating the project](#part-01-creating-the-project)
   * [Installing packages](#installing-packages)
   * [Creating the Django project](#creating-the-django-project)  
 
-* [Part 02: Creating the new app](#part-02:-creating-the-new-app)  
+* [Part 02: Creating the new app](#part-02-creating-the-new-app)  
 
-* [Part 03: Running the server and testing the app](#part-03:-running-the-server-and-testing-the-app)
+* [Part 03: Running the server and testing the app](#part-03-running-the-server-and-testing-the-app)
   
 
 
