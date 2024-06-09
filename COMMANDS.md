@@ -370,8 +370,38 @@ To do this, we use a Python package named **WhiteNoise**.
     - git push origin main
 
 
+--------
 
+### Part 16: Create a new app, e.g 'About'
 
+> **Creating the new app**
+- `python3 manage.py startapp about`
+- In **settings.py** add 'about', to INSTALLED_APPS. Remember the trailing comma!
+
+> **Creating the Models**
+- Consider what your field names and types should be ![erd-about](documentation_commands/erd-about.png)
+- Run `python3 manage.py makemigrations` and `python3 manage.py migrate` from the terminal after creating the model
+- In **about/admin.py** file: 
+    - import the new model: `from .models import About`
+    - import the SummernoteModelAdmin: `from django_summernote.admin import SummernoteModelAdmin`
+
+> **Creating the Views**
+- In **about/views.py** file: 
+    - Use the correct  method to create the queryset, e.g: `about = About.objects.all().order_by('-updated_on').first()`
+    - Pass in the new about object to the context, e.g: `{"about": about},`
+
+> **Creating the template**
+- Create a templates/about directory
+- Create a about.html template in there
+- In the **base.html** template:
+    - create a new variable at the top of the file: `{% url 'about' as about_url %}`
+    - add the About link beneath the Home link in the navigation section
+
+> **Creating the urls**
+- Create a urls.py file in the about directory and wire up the view with a URL:
+    - import the view: `from . import views`
+    - assign it to the correct URL and give it a name: `path('', views.about_me, name='about'),`
+- In the project-level urls.py file include the about URLS with the correct path: `path("about/", include("about.urls"), name="about-urls"),`
 
 --------
 
