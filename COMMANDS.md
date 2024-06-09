@@ -16,7 +16,12 @@ I created this file as a handy guide when working with a Django project.
     * [Create the Heroku app](#create-the-heroku-app)
     * [Update the code for deployment](#update-the-code-for-deployment)
     * [Deploy to Heroku](#deploy-to-heroku)
-  
+
+* [Part 05: Creating the database](#part-05-creating-the-database)
+    * [env.py](#env.py)
+    * [Install packages](#install-packages)
+    * [Import packages](#import-packages)
+    * [Database connection](#database-connection)
 
 
 ### Part 01: Creating the project
@@ -345,7 +350,7 @@ To do this, we use a Python package named **WhiteNoise**.
 - Open the Heroku-hosted app to see that it is now styled just like the local development app
 
 --------
-### Part 14: VIEWS Part 2
+### Part 15: VIEWS Part 2
 
 - In the my_app/**urls.py** file add a new path for post_detail: `path('<slug:slug>/', views.post_detail, name='post_detail'),`
 *Note: Don't forget the trailing slash after the slug.*
