@@ -405,6 +405,51 @@ To do this, we use a Python package named **WhiteNoise**.
 
 --------
 
+
+### Part 17: Django AllAuth
+
+> **Install and wire up Allauth**
+- Install the Allauth package: `pip3 install django-allauth~=0.57.0`
+- Add the django-allauth package to the requirements.txt file: `pip3 freeze --local > requirements.txt`
+- In the **my_project/settings.py** file add the following apps to INSTALLED_APPS:
+    - 'django.contrib.sites',
+    - 'allauth.account',
+    - 'allauth.socialaccount',
+- In the **my_project/settings.py** file add the following constants directly below the INSTALLED_APPS list:
+    - SITE_ID = 1
+    - LOGIN_REDIRECT_URL = '/'
+    - LOGOUT_REDIRECT_URL = '/'
+    - *Note: We need to add a SITE_ID of 1 so that Django can handle multiple sites from one database. We need to give each project an ID value so that the database is aware of which project is contacting it. We only have one site here using our one database, but we'll still need to tell Django the site number of 1 explicitly. The redirection URLs are also added so that after we've logged in or logged out, the site will automatically redirect us to the home page.*
+- Append the following line to the list of MIDDLEWARE: `'allauth.account.middleware.AccountMiddleware',`
+- Below the AUTH_PASSWORD_VALIDATORS, add: `ACCOUNT_EMAIL_VERIFICATION = 'none'`
+- Save all the files and migrate: `python3 manage.py migrate`
+*Note: Just as with django_summernote previously, you do not need makemigrations as the migrations directory and files already exist in the account, site and socialaccount apps.*
+- In the **my_project/urls.py** file include the path of accounts in the urlpatterns below about: `path("accounts/", include("allauth.urls")),`
+
+> **Adding and modifying templates**
+- In the **base.html** template assign the new URLs to variables using the as keyword:
+    - {% url 'account_login' as login_url %}
+    - {% url 'account_signup' as signup_url %}
+    - {% url 'account_logout' as logout_url %}
+    - Add Logout, Register and Login links, with their template tags directly below the About link
+    ![links](documentation_commands/logout-register-login.png)
+- Run the server: `python3 manage.py runserver` *Note that there is no CSS styling on the Register and Login pages.*
+- From the terminal, check the location of your django-allauth package files on your computer: `pip3 show django-allauth`
+- Copy and save the file path labelled **Location** for use in next step
+- Copy the allauth template files to the projects templates directory using this terminal command where <Location> is the file path you copied in the previous step: `cp -r <Location>/allauth/templates/* ./templates/`
+- In the **templates/account/login.html** file replace the code with all the code in this [file](https://github.com/Code-Institute-Solutions/blog/blob/main/11_authorisation/01_allauth/templates/account/login.html)
+- Run the Django server from the terminal and open the browser. 
+Open the login, then logout pages and note that they are now styled to match the rest of the project.
+
+> **Deployment**
+- Debug > False
+- git add --all
+- git commit -m "added authentication"
+- git push origin main
+- Open the project Heroku dashboard > click deploy tab > Deploy Branch 
+- Open the app: the login and logout pages are now styled to match the rest of the project
+
+
 ### GOOD HABITS!
 
 + Deploy early and regurarly
