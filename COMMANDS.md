@@ -405,7 +405,6 @@ To do this, we use a Python package named **WhiteNoise**.
 
 --------
 
-
 ### Part 17: Django AllAuth
 
 > **Install and wire up Allauth**
@@ -448,6 +447,44 @@ Open the login, then logout pages and note that they are now styled to match the
 - git push origin main
 - Open the project Heroku dashboard > click deploy tab > Deploy Branch 
 - Open the app: the login and logout pages are now styled to match the rest of the project
+
+
+--------
+
+### Part 18: POSTing and writing to the database
+
+> **Displaying comments**
+
+- In **blog/views.py** file add the following code to the post_detail view directly below the post variable: ![links](documentation_commands/post_detail_1.png)
+- In **blog/templates/blog/post_detail.html** file add the following code below the existing post.content DTL variable: ![links](documentation_commands/display-count-of-comments.png)
+
+> **Adding a comment form**
+- Pip install the two packages django-crispy-forms and crispy-bootstrap: `pip3 install django-crispy-forms~=2.0 crispy-bootstrap5~=0.7`
+- Add the packages to requirements.txt: `pip3 freeze --local > requirements.txt`
+- In the **my_project/settings.py** file:
+    - add the apps to INSTALLED_APPS: `'crispy_forms',` and `'crispy_bootstrap5',`
+    *Note: Even though we've added these to INSTALLED_APPS there are no migrations files to migrate in this instance.*
+    - add the following two constants: `CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"` and `CRISPY_TEMPLATE_PACK = "bootstrap5"`
+    *These constants set bootstrap5 as the allowed template pack and as the default template pack for your project. This choice of default template pack is to match the Bootstrap5 CSS and JS files already used in our project base.html template.*
+- Create a new **forms.py** file in the blog app
+    - Add a form for comments: ![links](documentation_commands/comment-form.png)
+- In the **blog/views.py** file 
+    - import the Comment form: `from .forms import CommentForm`
+    - within the post_detail view, create a variable comment_form and assign the class CommentForm() to it. Add this comment_form variable to the context in the render helper function. ![links](documentation_commands/comment-form-post-detail.png)
+- In **blog/templates/blog/post_detail.html** file: load the crispy forms DTL tags `{% load crispy_forms_tags %}`
+- In **post_detail.html** add the comment form below the post: ![links](documentation_commands/comment-form-post-detail-html.png)
+
+> **Handle the POST request from the comment form**
+- In the **blog/views.py** file within the post_detail view, add the following code: ![links](documentation_commands/handle-posts.png)
+
+> **Display a confirmation message**
+- In the **blog/views.py** file 
+    - add an import for messages: `from django.contrib import messages`
+    - within the post_detail view, add the following code to display a success message string: ![links](documentation_commands/success-message.png)
+- In the **base.html** template add the following code to display messages: ![links](documentation_commands/display-messages-base-html.png)
+
+
+
 
 
 ### GOOD HABITS!
